@@ -1,21 +1,19 @@
 package com.mycompany.invoise.invoiceweb.controller;
 
-import com.mycompany.invoise.core.controller.InvoiceControllerInterface;
 import com.mycompany.invoise.core.entity.Invoice;
 import com.mycompany.invoise.core.service.InvoiceServiceInterface;
+import com.mycompany.invoise.form.InvoiceForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/invoice")
-public class InvoiceControllerWeb implements InvoiceControllerInterface {
+public class InvoiceControllerWeb  {
 
     @Autowired
     private InvoiceServiceInterface invoiceService;
@@ -28,12 +26,18 @@ public class InvoiceControllerWeb implements InvoiceControllerInterface {
         this.invoiceService = invoiceService;
     }
 
-    @Override
-    public void createInvoice() {
-            //Scanner scanner = new Scanner(System.in);
-            Invoice invoice = new  Invoice();
-            invoice.setCustomerName("Tesla");
+
+    @PostMapping("")
+    public String createInvoice(@Valid @ModelAttribute InvoiceForm invoiceForm, BindingResult results) {
+
+            if(results.hasErrors()){
+                return "invoice-create-form";
+            }
+            Invoice invoice = new Invoice();
+            invoice.setCustomerName(invoiceForm.getCustomerName());
+            invoice.setOrderNumber(invoiceForm.getOrderNumber());
             invoiceService.create(invoice);
+            return "invoice-created";
     }
 
 /*
@@ -61,7 +65,7 @@ public class InvoiceControllerWeb implements InvoiceControllerInterface {
 
  */
 
-    @RequestMapping("/home")
+    @GetMapping("/home")
     public  String displayHome (Model model){
         System.out.println("le controleur à été invoqué par la methode displayHome");
         // List<Invoice> invoices = invoiceService.getInvoiceList();
@@ -70,7 +74,7 @@ public class InvoiceControllerWeb implements InvoiceControllerInterface {
 
         return "invoice-home";
     }
-    @RequestMapping("/{id}")
+    @GetMapping("/{id}")
     public String displayInvoice(@PathVariable("id") String number,Model model){
         System.out.println("la methode displayInvoice a été invoqué!!");
         //List<Invoice> invoices = invoiceService.getInvoiceList();
@@ -79,6 +83,11 @@ public class InvoiceControllerWeb implements InvoiceControllerInterface {
         return "invoice-details";
     }
 
+    @RequestMapping("/create-form")
+    public String displayInvoiceCreateForm(@ModelAttribute InvoiceForm invoice){
+
+        return "invoice-create-form";
+    }
     @Override
     public String toString() {
         return "InvoiceControllerWeb{" +
