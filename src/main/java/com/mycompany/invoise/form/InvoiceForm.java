@@ -9,8 +9,6 @@ public class InvoiceForm {
     private String customerName;
     @Size(min = 10,max = 13)
     private String orderNumber;
-
-
     public String getOrderNumber() {
         return orderNumber;
     }

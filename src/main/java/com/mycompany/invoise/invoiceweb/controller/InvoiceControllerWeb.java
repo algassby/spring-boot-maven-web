@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
@@ -27,7 +28,7 @@ public class InvoiceControllerWeb  {
     }
 
 
-    @PostMapping("")
+   @PostMapping("/create")
     public String createInvoice(@Valid @ModelAttribute InvoiceForm invoiceForm, BindingResult results) {
 
             if(results.hasErrors()){
@@ -40,9 +41,11 @@ public class InvoiceControllerWeb  {
             return "invoice-created";
     }
 
-/*
+
+
+
     @RequestMapping("/home")
-    public  ModelAndView displayHome (){
+    public ModelAndView displayHome (){
         System.out.println("le controleur à été invoqué par la methode displayHome");
        // List<Invoice> invoices = invoiceService.getInvoiceList();
         ModelAndView mv = new ModelAndView("invoice-home");
@@ -52,7 +55,7 @@ public class InvoiceControllerWeb  {
         return mv;
     }
 
-
+/*
     @RequestMapping("/{id}")
     public ModelAndView displayInvoice(@PathVariable("id") String number){
         System.out.println("la methode displayInvoice a été invoqué!!");
@@ -62,8 +65,10 @@ public class InvoiceControllerWeb  {
         mv.addObject("invoice",invoiceService.getInvoiceById(number));
         return mv;
     }
+*/
 
- */
+/*
+
 
     @GetMapping("/home")
     public  String displayHome (Model model){
@@ -74,7 +79,8 @@ public class InvoiceControllerWeb  {
 
         return "invoice-home";
     }
-    @GetMapping("/{id}")
+    */
+   /* @GetMapping("/{id}")
     public String displayInvoice(@PathVariable("id") String number,Model model){
         System.out.println("la methode displayInvoice a été invoqué!!");
         //List<Invoice> invoices = invoiceService.getInvoiceList();
@@ -82,7 +88,7 @@ public class InvoiceControllerWeb  {
         model.addAttribute("invoice",invoiceService.getInvoiceById(number));
         return "invoice-details";
     }
-
+*/
     @RequestMapping("/create-form")
     public String displayInvoiceCreateForm(@ModelAttribute InvoiceForm invoice){
 

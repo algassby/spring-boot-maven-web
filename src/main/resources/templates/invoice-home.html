@@ -3,21 +3,134 @@
       xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link  th:href="@{/static/css/style.css}" rel="stylesheet"/>
+    <style type="text/css">
+        article {
+            position: absolute;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .container {
+            display: table;
+            width: 100%;
+        }
+
+        .left-half {
+
+            position: absolute;
+            left: 0px;
+            width: 50%;
+        }
+
+        .right-half {
+
+            position: absolute;
+            right: 0px;
+            width: 50%;
+        }
+
+    </style>
     <title>Gestion  des factures</title>
 </head>
 <body>
 <p>Bienvenue dans la page gestion des factures</p>
-<!--<span th:text="${#locale.country}">US</span>-->
 <ul>
     <li><a href="create-form">Ajout de la facture</a></li>
 </ul>
 
+<section class="container">
+    <div class="left-half">
+        <article id="invoice-list">
+
+        </article>
+    </div>
+    <div class="right-half">
+        <article id="invoice-detail">
+
+        </article>
+    </div>
+</section>
+<script type="text/javascript">
+
+    fetch('../invoice')
+        .then(res => res.json())
+        .then(res => {
+            var invoiceListNode = document.getElementById('invoice-list');
+            invoiceListNode.innerHTML = "";
+
+            var table = document.createElement("table");
+            table.setAttribute("border","1");
+            invoiceListNode.appendChild(table);
+
+            res.forEach(invoice => {
+
+                var tr = document.createElement("tr");
+                table.appendChild(tr);
+
+                var td = document.createElement("td");
+                var text = document.createTextNode(`${invoice.number}`);
+                td.appendChild(text);
+                tr.appendChild(td);
+
+                td = document.createElement("td");
+                text = document.createTextNode(`${invoice.customerName}`);
+                td.appendChild(text);
+                tr.appendChild(td);
+
+                td = document.createElement("td");
+                var button = document.createElement("button");
+                button.setAttribute("type","button");
+                button.onclick = function() {
+                    showDetail(`${invoice.number}`);
+                };
+                text = document.createTextNode("Details");
+                button.appendChild(text);
+                td.appendChild(button);
+                tr.appendChild(td);
+            });
+
+        });
+
+
+    function showDetail(invoiceNumber){
+        fetch(invoiceNumber)
+            .then(res => res.json())
+            .then(res => {
+                var invoiceDetailNode = document.getElementById('invoice-detail');
+                invoiceDetailNode.innerHTML = "";
+
+                var p = document.createElement("p");
+                var text = document.createTextNode(`Number: ${res.number}`);
+                p.appendChild(text);
+                invoiceDetailNode.appendChild(p);
+
+                p = document.createElement("p");
+                text = document.createTextNode(`Customer name: ${res.customerName}`);
+                p.appendChild(text);
+                invoiceDetailNode.appendChild(p);
+
+                p = document.createElement("p");
+                text = document.createTextNode(`Order number: ${res.orderNumber}`);
+                p.appendChild(text);
+                invoiceDetailNode.appendChild(p);
+
+            });
+    }
+
+
+</script>
+
+<!--<span th:text="${#locale.country}">US</span>
+
 <table border="1">
     <tr th:each="invoice: ${invoices} ">
-        <!--<td th:text="${invoice.number}"></td>-->
+
        <td><a th:href="@{/invoice/{number}(number=${invoice.number})}" th:text="${invoice.number}"></a></td>
         <td th:text="${invoice.customerName}"></td>
     </tr>
 </table>
+-->
+<script type="text/javascript" th:src="@{/static/js/script.js}"></script>
 </body>
 </html>
