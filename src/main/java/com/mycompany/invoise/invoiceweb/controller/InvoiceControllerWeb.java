@@ -55,7 +55,7 @@ public class InvoiceControllerWeb  {
         return mv;
     }
 
-/*
+/*==
     @RequestMapping("/{id}")
     public ModelAndView displayInvoice(@PathVariable("id") String number){
         System.out.println("la methode displayInvoice a été invoqué!!");
