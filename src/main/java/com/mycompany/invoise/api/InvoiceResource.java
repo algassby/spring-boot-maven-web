@@ -54,7 +54,7 @@ public class InvoiceResource {
     }
     
     @GetMapping
-    public  List<Invoice> displayHome (){
+    public  Iterable<Invoice> displayHome (){
         System.out.println(invoiceService.getInvoiceList());
         return  invoiceService.getInvoiceList();
     }

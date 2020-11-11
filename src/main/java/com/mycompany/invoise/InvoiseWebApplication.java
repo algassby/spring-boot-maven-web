@@ -3,6 +3,7 @@ package com.mycompany.invoise;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.sql.ConnectionEvent;
@@ -12,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @SpringBootApplication
-@EnableWebMvc
+
 public class InvoiseWebApplication {
 
 	public static void main(String[] args) {
