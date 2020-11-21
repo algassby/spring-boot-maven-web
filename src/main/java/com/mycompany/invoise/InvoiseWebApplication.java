@@ -18,11 +18,9 @@ public class InvoiseWebApplication {
 
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(InvoiseWebApplication.class, args);
-
 	}
 	@Bean
 	public Hibernate5Module datHibernate5Module(){
 		return  new Hibernate5Module();
 	}
-
 }
