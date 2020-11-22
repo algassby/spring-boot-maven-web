@@ -3,7 +3,6 @@ package com.mycompany.invoise.invoiceweb.controller;
 import com.mycompany.invoise.core.entity.customer.Address;
 import com.mycompany.invoise.core.entity.customer.Customer;
 import com.mycompany.invoise.core.entity.invoice.Invoice;
-import com.mycompany.invoise.core.service.InvoiceServiceInterface;
 import com.mycompany.invoise.form.InvoiceForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

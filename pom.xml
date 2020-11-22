@@ -69,7 +69,13 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.mycompany.invoise</groupId>
+            <artifactId>invoice</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 	<build>
 		<plugins>
 			<plugin>
